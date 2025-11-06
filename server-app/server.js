@@ -1,15 +1,20 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/tasktracker")
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.log("MongoDB connection error:", err));
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Atlas connected"))
+  .catch(err => console.log("❌ MongoDB connection error:", err));
+
+
 
 // Task Schema
 const taskSchema = new mongoose.Schema({
